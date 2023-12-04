@@ -1,18 +1,4 @@
-def part1():
-    engine_schematic = []
-    special_characters = []
-    with open('input.txt') as f:
-        data = f.read().splitlines()
-        for l_idx, line in enumerate(data):
-            line_list = []
-            for c_idx, char in enumerate(line):
-                line_list.append(char)
-                if char == '.' or char.isdigit():
-                    continue
-                special_characters.append((l_idx, c_idx))
-
-            engine_schematic.append(line_list)
-
+def part1(engine_schematic, special_characters):
     n_lines = len(engine_schematic)
     n_columns = len(engine_schematic[0])
 
@@ -41,20 +27,7 @@ def part1():
         total += int(string_num)
     return total
 
-def part2():
-    engine_schematic = []
-    special_characters = []
-    with open('input.txt') as f:
-        data = f.read().splitlines()
-        for l_idx, line in enumerate(data):
-            line_list = []
-            for c_idx, char in enumerate(line):
-                line_list.append(char)
-                if char == '*':
-                    special_characters.append((l_idx, c_idx))
-
-            engine_schematic.append(line_list)
-
+def part2(engine_schematic, special_characters):
     n_lines = len(engine_schematic)
     n_columns = len(engine_schematic[0])
 
@@ -89,6 +62,24 @@ def part2():
         total += int(string_num1) * int(string_num2)
     return total
 
+def parse_input(data):
+    engine_schematic = []
+    special_characters = []
+    for l_idx, line in enumerate(data):
+        line_list = []
+        for c_idx, char in enumerate(line):
+            line_list.append(char)
+            if char == '.' or char.isdigit():
+                continue
+            special_characters.append((l_idx, c_idx))
+        engine_schematic.append(line_list)
+    
+    return engine_schematic, special_characters
+
 if __name__ == "__main__":
-    print(part1())
-    print(part2())
+    file = "input.txt"
+    with open(file) as f:
+        data = f.read()
+        engine, special = parse_input(data)
+        print(part1(engine, special))
+        print(part2(engine, special))
