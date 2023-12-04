@@ -1,9 +1,9 @@
 import math
 def to_numbers(string):
-    return [int(x) for x in string.split(" ") if x != ""]
+    return [int(x) for x in string.split()]
 
 def part1(data):
-    game_value = []
+    game_value = 0
     for line in data:
         _, game_str = line.split(":")
         win_str, your_str = game_str.split("|")
@@ -16,8 +16,8 @@ def part1(data):
         val = 0
         if count != 0:
             val = int(math.pow(2, count -1))
-        game_value.append(val)
-    return sum(game_value)
+        game_value += val
+    return game_value
 
 def part2(data):
     total_cards = 0
