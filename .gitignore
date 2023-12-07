@@ -12,3 +12,7 @@ __pycache__/
 
 # OS
 .DS_Store
+
+# aoc
+2022/
+**/build/
