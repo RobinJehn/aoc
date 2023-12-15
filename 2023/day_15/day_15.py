@@ -8,6 +8,7 @@ from collections import defaultdict
 import itertools
 from functools import cache
 
+
 def hash(string):
     value = 0
     for char in string:
@@ -16,9 +17,11 @@ def hash(string):
         value %= 256
     return value
 
+
 def part1(data):
     parts = data[0].split(",")
     return sum(list(map(hash, parts)))
+
 
 def getLabel(string):
     if "-" in string:
@@ -26,6 +29,8 @@ def getLabel(string):
     else:
         idx = string.find("=")
     return string[:idx]
+
+
 def part2(data):
     # idea: have a dict that stores (name, strength) for each box,
     lenses = {}
@@ -42,11 +47,11 @@ def part2(data):
             found = False
             for lens in lenses[box]:
                 if lens[0] == part[:idx]:
-                    lens[1] = int(part[idx+1:])
+                    lens[1] = int(part[idx + 1 :])
                     found = True
                     break
             if not found:
-                lenses[box].append([part[:idx], int(part[idx+1:])])
+                lenses[box].append([part[:idx], int(part[idx + 1 :])])
 
     total = 0
     for key, lens_s in lenses.items():
