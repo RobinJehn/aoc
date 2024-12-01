@@ -40,7 +40,7 @@ def getNumberPossibilities(numbers, orig_text):
 def getPossibilities(number, text):
     possibilities = []
     for idx in range(len(text)):
-        if '#' in text[:idx]:
+        if "#" in text[:idx]:
             break
         if (
             checkNumberCouldFit(number, text[idx : idx + number])
@@ -50,7 +50,8 @@ def getPossibilities(number, text):
             possibilities.append(idx)
     return possibilities
 
-#Custom Decorator function
+
+# Custom Decorator function
 def listToTuple(function):
     def wrapper(*args):
         args = [tuple(x) if type(x) == list else x for x in args]
@@ -59,7 +60,8 @@ def listToTuple(function):
         return result
     return wrapper
 
-#your cached function
+
+# your cached function
 @listToTuple
 @cache
 def recursiveNumberOfArangments(text, numbers):
@@ -67,7 +69,6 @@ def recursiveNumberOfArangments(text, numbers):
         return int("#" not in text)
 
     possibilities = getPossibilities(numbers[0], text)
-
     adding = 0
     for possibility in possibilities:
         if len(text) == possibility + numbers[0] and len(numbers) == 1:

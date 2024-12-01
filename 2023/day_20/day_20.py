@@ -92,10 +92,6 @@ def press_button_rx(modules, relevant_inputs):
         signals = new_signals
     return found_relevant_input
 
-# The final `rx` module is connected to a single other module, of the conjunction type.
-# The single conjunction module connected to `rx` receives input only from other conjunction modules.
-
-# All of *these* conjunction modules have no offset in their cycle: The first time they emit a high pulse is exactly after their entire cycle has been completely iterated through.
 
 def press_button(modules):
     signal_count = {Signal.LOW: 0, Signal.HIGH: 0}
@@ -192,7 +188,7 @@ def part2(data):
     for module in modules.values():
         if isinstance(module, Conjunction):
             module.init_memory(inputs[module.name])
-    
+
     relevant_inputs = []
     new_input = inputs["rx"][0]
     for input in inputs[new_input]:

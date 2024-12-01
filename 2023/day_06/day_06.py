@@ -36,6 +36,23 @@ def part2(data):
     return len(values)
 
 
+def part2_quick(data):
+    for line in data:
+        if line.startswith("Time"):
+            times = "".join(line.split(":")[1].split())
+            times = [int(times)]
+        else:
+            distances = "".join(line.split(":")[1].split())
+            distances = [int(distances)]
+    values = []
+    for time, distance in zip(times, distances):
+        sub_values = []
+        for time_v in range(time):
+            if time_v * (time - time_v) > distance:
+                sub_values.append(time_v)
+        values.append(len(sub_values))
+    return values[0]
+
 if __name__ == "__main__":
     # file = "2023/day_05/test.txt"
     # file = "test.txt"
@@ -45,3 +62,4 @@ if __name__ == "__main__":
         data = f.read().splitlines()
         print(part1(data))
         print(part2(data))
+        print(part2_quick(data))

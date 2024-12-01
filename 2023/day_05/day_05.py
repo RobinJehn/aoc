@@ -1,5 +1,6 @@
 import math
 import numpy as np
+from tqdm import tqdm
 
 
 def part1(data):
@@ -133,6 +134,48 @@ def part2(data):
     return min(values)[0]
 
 
+def part2_brut(data):
+    values = []
+    maps = {}
+    for line in data:
+        if line.startswith("seeds:"):
+            seeds_str = line.split(":")[1].split()
+            seeds_nums = [int(s) for s in seeds_str]
+            seeds = []
+            for idx in tqdm(range(0, len(seeds_nums), 2)):
+                seeds += list(range(seeds_nums[idx + 1]))
+            continue
+        if len(line) == 0:
+            continue
+        if line[0].isalpha():
+            map_name = line.split(":")[0]
+            maps[map_name] = []
+            continue
+        if line[0].isdigit():
+            numbers_str = line.split()
+            numbers = [int(n) for n in numbers_str]
+            maps[map_name].append(numbers)
+
+    current_map = "seed"
+    for seed in seeds:
+        value = seed
+        cond = True
+        while cond:
+            for map_name, map_values in maps.items():
+                if map_name.startswith(current_map):
+                    current_map = map_name.split()[0].split("-")[2]
+                    for dest_range, start_range, range_ in map_values:
+                        if start_range <= value <= start_range + range_ - 1:
+                            value = dest_range + value - start_range
+                            break
+                    if current_map.endswith("location"):
+                        values.append(value)
+                        current_map = "seed"
+                        cond = False
+                        break
+    return min(values)
+
+
 if __name__ == "__main__":
     # file = "2023/day_05/test.txt"
     # file = "test.txt"
@@ -142,3 +185,4 @@ if __name__ == "__main__":
         data = f.read().splitlines()
         print(part1(data))
         print(part2(data))
+        part2_brut(data)
