@@ -16,3 +16,5 @@ __pycache__/
 # aoc
 2022/
 **/build/
+**/target/
+
