@@ -18,8 +18,8 @@ download_day() {
     YEAR=$1
     DAY=$(printf "%02d" $2)  # Pad day with leading zero
     URL="https://adventofcode.com/$YEAR/day/${DAY#0}/input"  # Remove leading zero for URL
-    DIR="$YEAR/day_$DAY"
-    FILE="$DIR/input.txt"
+    DIR="$YEAR/inputs"
+    FILE="$DIR/day_$DAY.txt"
 
     # Check if the required directories exist, create if not
     if [ ! -d "$DIR" ]; then
